@@ -30,7 +30,7 @@ namespace Reports
         DispatcherTimer timer = new DispatcherTimer();
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        public void CreateDirectory(string path) 
+        public void CreateDirectory(string path)
         {
             try
             {
@@ -46,7 +46,7 @@ namespace Reports
                 ButtonStart.IsEnabled = false;
 
                 logger.Error("Ошибка при выполнении метода CreateDirectory " + exCreate.StackTrace);
-            }            
+            }
         }
 
         public void CreateDirectory(string path, string path2)
@@ -72,7 +72,7 @@ namespace Reports
 
                 logger.Error("Ошибка при выполнении метода CreateDirectory " + exCreate.StackTrace);
             }
-            
+
         }
         public void TulpepArchives(string nameArchive)
         {
@@ -83,7 +83,7 @@ namespace Reports
                 Delay = 4000
             };
             Tulpep.Click += PopupClick;
-            Tulpep.Popup();            
+            Tulpep.Popup();
         }
         public bool LoadConfig()
         {
@@ -140,13 +140,13 @@ namespace Reports
 
                     for (int i = 0; i < nameReports.Length; i++)
                     {
-                        string nameXml = System.IO.Path.GetFileName(nameReports[i]); // получаем имя 1 файла из массива
+                        string nameXml = System.IO.Path.GetFileName(nameReports[i]); // получаем имя первого файла из массива 
 
                         try
                         {
                             if (new FileInfo(nameReports[i]).Length != 0) // проверка размера файла
                             {
-                                CreateDirectory(pathXmlSave);                               
+                                CreateDirectory(pathXmlSave);
 
                                 File.Move(nameReports[i], pathXmlSave + "\\" + nameXml);     // исключение если файл уже существует, переход в catch в начало цикла                               
 
@@ -171,7 +171,7 @@ namespace Reports
                     if (Directory.Exists(pathXmlSave) && Directory.GetFiles(pathXmlSave).Length != 0) // проверка существует директория сохранения xml с текущей датой и временем &&                                                                                               
                     {                                                                                 //если существует то проверяется на файлы
                         CreateDirectory(pathZipSave);
-                        
+
                         ZipFile.CreateFromDirectory(pathXmlSave, pathZipSave + "\\" + DateTime.Now.ToString("HHmm") + ".zip");  // исключение если архив уже существует не обработано отдельно
                         logger.Info("Создан архив: " + DateTime.Now.ToString("HHmm"));
 
@@ -207,12 +207,12 @@ namespace Reports
             InitializeComponent();
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
-        {          
+        {
             logger.Info("Запуск программы ");
 
             if (LoadConfig())
             {
-                CreateDirectory(pathXml, pathZip);                
+                CreateDirectory(pathXml, pathZip);
             }
 
             LblReportCount.Content = reportCount;
