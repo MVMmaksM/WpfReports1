@@ -1,0 +1,28 @@
+﻿<Window x:Class="Reports.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Reports"
+        mc:Ignorable="d"
+        Title="Reports" Height="360.206" Width="373.038" Loaded="Window_Loaded">
+    <Grid>
+        <Button x:Name="ButtonStart" Content="Старт" HorizontalAlignment="Left" Margin="56,262,0,0" VerticalAlignment="Top" Width="75" Click="ButtonStart_Click"/>
+        <Button x:Name="ButtonStop"  Content="Стоп" HorizontalAlignment="Left" Margin="214,262,0,0" VerticalAlignment="Top" Width="75" Click="ButtonStop_Click" IsEnabled="False"/>
+        <Label x:Name="LblReportCount" HorizontalAlignment="Left" Margin="182,160,0,0" Content="" VerticalAlignment="Top" Width="38" VerticalContentAlignment="Center"/>
+        <Label Content="Обработано отчетов" HorizontalAlignment="Left" Margin="56,160,0,0" VerticalAlignment="Top" Width="126" VerticalContentAlignment="Center"/>
+        <Label Content="Создано архивов" HorizontalAlignment="Left" Margin="56,186,0,0" VerticalAlignment="Top" Width="126"/>
+        <Label x:Name="LblZipCount" Content="" HorizontalAlignment="Left" Margin="182,186,0,0" VerticalAlignment="Top" Width="38"/>
+        <Label Content="Запущено в" HorizontalAlignment="Left" Margin="56,41,0,0" VerticalAlignment="Top" Width="126"/>
+        <Label x:Name="TimeStart" Content="" HorizontalAlignment="Left" Margin="187,41,0,0" VerticalAlignment="Top" Width="72"/>
+        <Label Content="Остановлено в" HorizontalAlignment="Left" Margin="56,67,0,0" VerticalAlignment="Top" Width="126"/>
+        <Label x:Name="TimeStop" Content="" HorizontalAlignment="Left" Margin="187,67,0,0" VerticalAlignment="Top" Width="72"/>
+        <Label Content="Ошибок" HorizontalAlignment="Left" Margin="56,103,0,0" VerticalAlignment="Top" Width="100"/>
+        <Label x:Name="ErrorCount" Content="" HorizontalAlignment="Left" Margin="182,103,0,0" VerticalAlignment="Top" Width="38"/>
+        <CheckBox x:Name="ChkBoxNtf" Content="Уведомление" HorizontalAlignment="Right" Margin="0,217,215,0" VerticalAlignment="Top"/>
+        <Label Content="Пустые отчеты" HorizontalAlignment="Left" Margin="56,134,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="LblNullCount" Content="" HorizontalAlignment="Left" Margin="182,134,0,0" VerticalAlignment="Top" Width="38"/>
+
+
+    </Grid>
+</Window>
