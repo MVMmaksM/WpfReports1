@@ -154,7 +154,7 @@ namespace Reports
                             }
                             else
                             {
-                                CreateDirectory(pathOutOffline + "\\Пустые отчеты");
+                                CreateDirectory(pathOutOffline + "\\Пустые отчеты"); 
 
                                 File.Move(nameReports[i], pathOutOffline + "\\Пустые отчеты" + "\\" + nameXml); // перемещение файла с 0 кб в папку "Пустые отчеты"
 
@@ -215,6 +215,9 @@ namespace Reports
                 CreateDirectory(pathXml, pathZip);
             }
 
+            timer.Interval = TimeSpan.FromSeconds(timerInterval);
+            timer.Tick += TimeTick;
+
             LblReportCount.Content = reportCount;
             LblZipCount.Content = zipCount;
             ErrorCount.Content = errorCount;
@@ -226,9 +229,7 @@ namespace Reports
             ButtonStart.IsEnabled = false;
             ButtonStop.IsEnabled = true;
             TimeStart.Content = DateTime.Now.ToShortTimeString();
-
-            timer.Interval = TimeSpan.FromSeconds(timerInterval);
-            timer.Tick += TimeTick;
+            
             timer.Start();
             logger.Info("Запуск таймера");
 
