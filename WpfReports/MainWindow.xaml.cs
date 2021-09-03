@@ -24,8 +24,8 @@ namespace Reports
 {
     public partial class MainWindow : Window
     {
-        string pathOutOffline, pathXml, pathZip;
-        int reportCount, zipCount, errorCount, timerInterval, nullRptCount;
+        string pathOutOffline, pathXml, pathZip, pathErrOkpoProtocols, pathProtocolOut;
+        int reportCount, zipCount, errorCount, timerInterval, nullRptCount, errOkpoCount;
 
         DispatcherTimer timer = new DispatcherTimer();
         private static Logger logger = LogManager.GetCurrentClassLogger();
@@ -154,7 +154,7 @@ namespace Reports
                             }
                             else
                             {
-                                CreateDirectory(pathOutOffline + "\\Пустые отчеты"); 
+                                CreateDirectory(pathOutOffline + "\\Пустые отчеты");
 
                                 File.Move(nameReports[i], pathOutOffline + "\\Пустые отчеты" + "\\" + nameXml); // перемещение файла с 0 кб в папку "Пустые отчеты"
 
@@ -202,6 +202,46 @@ namespace Reports
                 ErrorCount.Content = ++errorCount; // подсчет количества ошибок
             }
         }
+
+        public void ErrOkpoMoveProtocols()
+        {
+            logger.Info("Вызов метода ErrOkpoMoveProtocols");
+
+            try
+            {
+                pathErrOkpoProtocols = @"V:\_Protocols\Err_okpo";
+                pathProtocolOut = @"V:\_Protocols\Out";
+
+                string[] pathDirectory = Directory.GetDirectories(pathErrOkpoProtocols);
+
+                for (int i = 0; i < pathDirectory.Length; i++)
+                {
+                    string[] listReports = Directory.GetFiles(pathDirectory[i] + "\\MSG");
+
+                    if (listReports.Length != 0)
+                    {
+                        for (int j = 0; j < listReports.Length; j++)
+                        {
+                            string nameReport = System.IO.Path.GetFileName(listReports[j]);
+                            File.Move(listReports[j], pathProtocolOut + "\\" + nameReport);
+                            
+                            CountMoveErrOkpoProtocol.Content = ++errOkpoCount;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Ошибка при выполнении метода ErrOkpoMoveProtocols" + ex.StackTrace);
+                ErrorCount.Content = ++errorCount;
+            }           
+        }
+
+        private void ButtonErrOkpo_Click(object sender, RoutedEventArgs e)
+        {
+            ErrOkpoMoveProtocols();
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -229,7 +269,7 @@ namespace Reports
             ButtonStart.IsEnabled = false;
             ButtonStop.IsEnabled = true;
             TimeStart.Content = DateTime.Now.ToShortTimeString();
-            
+
             timer.Start();
             logger.Info("Запуск таймера");
 
