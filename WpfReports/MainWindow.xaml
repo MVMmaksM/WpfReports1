@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Reports"
         mc:Ignorable="d"
-        Title="Reports" Height="404.206" Width="454.038" Loaded="Window_Loaded">
+        Title="Reports" Height="355.206" Width="434.038" Loaded="Window_Loaded">
     <Grid>
         <Button x:Name="ButtonStart" Content="Старт" HorizontalAlignment="Left" Margin="56,276,0,0" VerticalAlignment="Top" Width="75" Click="ButtonStart_Click"/>
         <Button x:Name="ButtonStop"  Content="Стоп" HorizontalAlignment="Left" Margin="161,276,0,0" VerticalAlignment="Top" Width="75" Click="ButtonStop_Click" IsEnabled="False"/>
@@ -19,7 +19,7 @@
         <Label x:Name="TimeStop" Content="" HorizontalAlignment="Left" Margin="187,67,0,0" VerticalAlignment="Top" Width="72"/>
         <Label Content="Ошибок" HorizontalAlignment="Left" Margin="56,103,0,0" VerticalAlignment="Top" Width="100"/>
         <Label x:Name="ErrorCount" Content="" HorizontalAlignment="Left" Margin="182,103,0,0" VerticalAlignment="Top" Width="38"/>
-        <CheckBox x:Name="ChkBoxNtf" Content="Уведомление" HorizontalAlignment="Right" Margin="0,245,290,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="ChkBoxNtf" Content="Уведомление" HorizontalAlignment="Right" Margin="0,243,276,0" VerticalAlignment="Top"/>
         <Label Content="Пустые отчеты" HorizontalAlignment="Left" Margin="56,134,0,0" VerticalAlignment="Top"/>
         <Label x:Name="LblNullCount" Content="" HorizontalAlignment="Left" Margin="182,134,0,0" VerticalAlignment="Top" Width="38"/>
         <Button x:Name="ButtonErrOkpo" Content="Переместить ErrOkpo" HorizontalAlignment="Left" Margin="283,276,0,0" VerticalAlignment="Top" Width="123" Click="ButtonErrOkpo_Click" Height="20"/>
