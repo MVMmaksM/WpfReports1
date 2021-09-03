@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Reports"
         mc:Ignorable="d"
-        Title="Reports" Height="355.206" Width="420.038" Loaded="Window_Loaded">
+        Title="Reports" Height="369.206" Width="420.038" Loaded="Window_Loaded">
     <Grid>
         <Button x:Name="ButtonStart" Content="Старт" HorizontalAlignment="Left" Margin="56,276,0,0" VerticalAlignment="Top" Width="75" Click="ButtonStart_Click"/>
         <Button x:Name="ButtonStop"  Content="Стоп" HorizontalAlignment="Left" Margin="173,276,0,0" VerticalAlignment="Top" Width="75" Click="ButtonStop_Click" IsEnabled="False"/>
