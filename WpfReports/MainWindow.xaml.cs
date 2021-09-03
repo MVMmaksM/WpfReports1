@@ -99,9 +99,11 @@ namespace Reports
                     configXml = new XmlDocument();
                     configXml.Load(pathConfig);
 
-                    pathOutOffline = configXml.SelectSingleNode("Base/DirectoriesReports/OutOffline").InnerText;
-                    pathXml = configXml.SelectSingleNode("Base/DirectoriesReports/Xml").InnerText + "\\xml";
-                    pathZip = configXml.SelectSingleNode("Base/DirectoriesReports/Archives").InnerText + "\\archives";
+                    pathOutOffline = configXml.SelectSingleNode("Base/DirectoryReports/OutOffline").InnerText;
+                    pathXml = configXml.SelectSingleNode("Base/DirectoryReports/Xml").InnerText + "\\xml";
+                    pathZip = configXml.SelectSingleNode("Base/DirectoryReports/Archives").InnerText + "\\archives";
+                    pathErrOkpoProtocols = configXml.SelectSingleNode("Base/DirectoryProtocolsErrOkpo/ProtocolErrOkpo").InnerText;
+                    pathProtocolOut = configXml.SelectSingleNode("Base/DirectoryProtocolsErrOkpo/ProtocolOut").InnerText;
                     timerInterval = Convert.ToInt32(configXml.SelectSingleNode("Base/Settings/TimerInterval").InnerText);
 
                     return true;
@@ -209,32 +211,42 @@ namespace Reports
 
             try
             {
-                pathErrOkpoProtocols = @"V:\_Protocols\Err_okpo";
-                pathProtocolOut = @"V:\_Protocols\Out";
-
                 string[] pathDirectory = Directory.GetDirectories(pathErrOkpoProtocols);
 
                 for (int i = 0; i < pathDirectory.Length; i++)
                 {
-                    string[] listReports = Directory.GetFiles(pathDirectory[i] + "\\MSG");
-
-                    if (listReports.Length != 0)
+                    try
                     {
-                        for (int j = 0; j < listReports.Length; j++)
+                        if (Directory.Exists(pathDirectory[i] + "\\MSG")) // проверяем существует ли директория MSG 
                         {
-                            string nameReport = System.IO.Path.GetFileName(listReports[j]);
-                            File.Move(listReports[j], pathProtocolOut + "\\" + nameReport);
-                            
-                            CountMoveErrOkpoProtocol.Content = ++errOkpoCount;
+                            string[] listReports = Directory.GetFiles(pathDirectory[i] + "\\MSG", "*.xml");
+
+                            if (listReports.Length != 0)
+                            {
+                                for (int j = 0; j < listReports.Length; j++)
+                                {
+                                    string nameReport = System.IO.Path.GetFileName(listReports[j]);
+                                    File.Move(listReports[j], pathProtocolOut + "\\" + nameReport);                                   
+                                    
+                                    CountMoveErrOkpoProtocol.Content = ++errOkpoCount;
+                                }
+                            }
                         }
                     }
+                    catch (IOException exIO)
+                    {
+                        logger.Error("Ошибка при выполнении метода ErrOkpoMoveProtocols" + exIO.Message + exIO.StackTrace);
+                        ErrorCount.Content = ++errorCount;
+                        continue;
+                    }                    
                 }
             }
             catch (Exception ex)
             {
-                logger.Error("Ошибка при выполнении метода ErrOkpoMoveProtocols" + ex.StackTrace);
-                ErrorCount.Content = ++errorCount;
-            }           
+                //MessageBox.Show(ex.Message);
+                logger.Error("Ошибка при выполнении метода ErrOkpoMoveProtocols" + ex.Message + ex.StackTrace);
+                ErrorCount.Content = ++errorCount;                
+            }
         }
 
         private void ButtonErrOkpo_Click(object sender, RoutedEventArgs e)
